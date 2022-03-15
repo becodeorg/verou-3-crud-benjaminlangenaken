@@ -11,14 +11,14 @@ error_reporting(E_ALL);
 // Load you classes
 require_once 'config.php';
 require_once 'classes/DatabaseManager.php';
-require_once 'classes/CardRepository.php';
+require_once 'classes/RecordRepository.php';
 
 $databaseManager = new DatabaseManager($config['host'], $config['user'], $config['password'], $config['dbname']);
 $databaseManager->connect();
 
 // This example is about a Pokémon card collection
 // Update the naming if you'd like to work with another collection
-$cardRepository = new CardRepository($databaseManager);
+$cardRepository = new RecordRepository($databaseManager);
 $cards = $cardRepository->get();
 
 // Get the current action to execute
@@ -29,10 +29,10 @@ $action = $_GET['action'] ?? null;
 // This system will help you to only execute the code you want, instead of all of it (or complex if statements)
 switch ($action) {
 	case 'create':
-		$this->create();
+		create();
 		break;
 	default:
-		$this->overview();
+		overview();
 		break;
 }
 

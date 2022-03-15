@@ -11,11 +11,12 @@
 
 <h1>VinylCollector - Track your collection</h1>
 
-<!--<ul>-->
-<!--    --><?php //foreach ($records as $record) : ?>
-<!--        <li>--><?//= $record['name'] ?><!--</li>-->
-<!--    --><?php //endforeach; ?>
-<!--</ul>-->
+<ul>
+    <?php foreach ($_SESSION['records'] as $record) : ?>
+        <li><?= '<pre>'; var_dump($record) ?></li>
+    <?php endforeach; ?>
+</ul>
 
 </body>
 </html>
+

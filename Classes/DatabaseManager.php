@@ -32,7 +32,10 @@ class DatabaseManager
 			$this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			echo "Connected successfully";
 		} catch(PDOException $e) {
-			echo "Connection failed: " . $e->getMessage();
+			echo "Connection failed: ".$e->getMessage().'<br>';
+			echo "Error code: ".$e->getCode().'<br>';
+			echo "Error occurred in file: ".$e->getFile().'<br>';
+			echo "Error occurred on line: ".$e->getLine().'<br>';
 		}
 	}
 }

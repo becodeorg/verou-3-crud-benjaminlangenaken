@@ -8,6 +8,9 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
+// Create new session
+session_start();
+
 // Load you classes
 require_once 'config.php';
 require_once 'classes/DatabaseManager.php';
@@ -18,8 +21,9 @@ $databaseManager->connect();
 
 // This example is about a Pokémon card collection
 // Update the naming if you'd like to work with another collection
-$cardRepository = new RecordRepository($databaseManager);
-$cards = $cardRepository->get();
+$RecordRepository = new RecordRepository($databaseManager);
+$records = $RecordRepository->get();
+$_SESSION['records'] = $records;
 
 // Get the current action to execute
 // If nothing is specified, it will remain empty (home should be loaded)

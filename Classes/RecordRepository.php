@@ -28,8 +28,8 @@ class RecordRepository
 	public function get(): array
 	{
 		// Replace dummy data by real one
-		$getSqlQuery = "SELECT * FROM records";
-		$queryResult = $this->databaseManager->connection->query($getSqlQuery, PDO::FETCH_ASSOC);
+		$sqlQuery = "SELECT * FROM records";
+		$queryResult = $this->databaseManager->connection->query($sqlQuery, PDO::FETCH_OBJ);
 		return $queryResult->fetchAll();
 
 		// We get the database connection first, so we can apply our queries with it
@@ -46,18 +46,3 @@ class RecordRepository
 
 	}
 }
-
-//array(10) {
-//	[0]=>
-//  array(5) {
-//		["record_id"]=>
-//    string(1) "1"
-//		["artist"]=>
-//    string(11) "Miles Davis"
-//		["album"]=>
-//    string(12) "Kind of Blue"
-//		["genre"]=>
-//    string(4) "Jazz"
-//		["year"]=>
-//    string(4) "1959"
-//  }

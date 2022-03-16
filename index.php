@@ -33,7 +33,8 @@ $action = $_GET['action'] ?? null;
 // This system will help you to only execute the code you want, instead of all of it (or complex if statements)
 switch ($action) {
 	case 'create':
-		create();
+		require 'create.php';
+		create($RecordRepository);
 		break;
 	default:
 		overview();
@@ -47,7 +48,7 @@ function overview()
 	require 'overview.php';
 }
 
-function create()
+function create($RecordRepository)
 {
-	// TODO: provide the create logic
+	$RecordRepository->create();
 }

@@ -15,7 +15,16 @@ class RecordRepository
 
 	public function create(): void
 	{
+		if(isset($_GET['artist'], $_GET['album'], $_GET['genre'], $_GET['year'])){
+			$artist = $_GET['artist'];
+			$album = $_GET['album'];
+			$genre = $_GET['genre'];
+			$year = $_GET['year'];
 
+			$sqlQuery  = "INSERT INTO records(artist, album, genre, year) VALUES(:artist, :album, :genre, :year)";
+			$stmt = $this->databaseManager->connection->prepare($sqlQuery);
+			$stmt->execute([':artist' => $artist, ':album' => $album, ':genre' => $genre, ':year' => $year]);
+		}
 	}
 
 	// Get one
@@ -28,7 +37,7 @@ class RecordRepository
 	public function get(): array
 	{
 		// Replace dummy data by real one
-		$sqlQuery = "SELECT * FROM records";
+		$sqlQuery = 'SELECT * FROM records';
 		$queryResult = $this->databaseManager->connection->query($sqlQuery, PDO::FETCH_OBJ);
 		return $queryResult->fetchAll();
 

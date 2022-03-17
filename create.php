@@ -1,3 +1,15 @@
+<?php
+
+// Add empty strings for input fields when loading page for the first time
+if(empty($_POST)) {
+    $_POST['artist'] = '';
+    $_POST['album'] = '';
+    $_POST['genre'] = '';
+    $_POST['year'] = '';
+};
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -14,31 +26,34 @@
 <br>
 <h1>VinylCollector - Add a record</h1>
 <br>
-	<form method="get" action="index.php" class="d-flex justify-content-center row g-4">
-    <div class="col-md-5">
-        <label for="inputArtist" class="form-label">Artist</label>
-        <input type="text" class="form-control" id="inputArtist" name="artist">
-    </div>
-    <div class="col-md-5">
-        <label for="inputAlbum" class="form-label">Album Name</label>
-        <input type="text" class="form-control" id="inputAlbum" name="album">
-    </div>
-    <div class="col-md-5">
-        <label for="inputGenre" class="form-label">Genre</label>
-        <input type="text" class="form-control" id="inputGenre" name="genre">
-    </div>
-    <div class="col-md-5">
-        <label for="inputYear" class="form-label">Year Released</label>
-        <input type="text" class="form-control" id="inputYear" name="year">
-    </div>
-    <div class="d-flex justify-content-center">
-        <a href="index.php" style="padding-right: 50px">
-            <button style="padding: 10px 40px" type="button" class="btn btn-primary btn-lg">Back</button>
-        </a>
+	<form action="" method="post">
+    <div class="form-row">
+        <div class="col-3">
+            <label for="inputArtist">Artist Name</label>
+            <input type="text" id="inputArtist" class="form-control" name="artist" value= <?= $_POST['artist'] ?> >
+        </div>
+        <br>
+        <div class="col-3">
+            <label for="inputAlbum">Album</label>
+            <input type="text" id="inputAlbum" class="form-control" name="album" value= <?= $_POST['album'] ?> >
+        </div>
+        <br>
+        <div class="col-3">
+            <label for="inputGenre">Genre</label>
+            <input type="text" id="inputGenre" class="form-control" name="genre" value= <?= $_POST['genre'] ?> >
+        </div>
+        <br>
+        <div class="col-1">
+            <label for="inputYear">Year Released</label>
+            <input type="number" id="inputYear" class="form-control" name="year" value= <?= $_POST['year'] ?> >
+        </div>
+        <br>
+        <div class="col-3">
 <!--        name="action" refers to our $_GET['action'] variable-->
 <!--        value="create" refers to the case 'create' from the switch statement-->
-        <button name="action" value="create" type="submit" style="padding: 10px 10px"
-                class="btn btn-primary btn-lg">Add record!</button>
+            <button name="action" value="create" type="submit" style="padding: 10px 10px"
+                    class="btn btn-primary">Add record!</button>
+        </div>
     </div>
 	</form>
 </body>

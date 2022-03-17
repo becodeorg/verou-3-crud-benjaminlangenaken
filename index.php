@@ -36,6 +36,10 @@ switch ($action) {
 		require 'create.php';
 		create($RecordRepository);
 		break;
+	case 'edit':
+		require 'edit.php';
+		edit($RecordRepository);
+		break;
 	default:
 		overview();
 		break;
@@ -51,4 +55,9 @@ function overview()
 function create($RecordRepository)
 {
 	$RecordRepository->create();
+}
+
+function edit($RecordRepository)
+{
+	$RecordRepository->update();
 }

@@ -15,15 +15,30 @@ class RecordRepository
 
 	public function create(): void
 	{
-		if(isset($_GET['artist'], $_GET['album'], $_GET['genre'], $_GET['year'])){
-			$artist = $_GET['artist'];
-			$album = $_GET['album'];
-			$genre = $_GET['genre'];
-			$year = $_GET['year'];
+		if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-			$sqlQuery  = "INSERT INTO records(artist, album, genre, year) VALUES(:artist, :album, :genre, :year)";
-			$stmt = $this->databaseManager->connection->prepare($sqlQuery);
-			$stmt->execute([':artist' => $artist, ':album' => $album, ':genre' => $genre, ':year' => $year]);
+			$artist = $_POST['artist'];
+			$album = $_POST['album'];
+			$genre = $_POST['genre'];
+			$year = $_POST['year'];
+
+			// Make sure we only add values into the database when all fields have been entered
+			if (!empty($artist && $album && $genre && $year)) {
+				$sqlQuery = "INSERT INTO records(artist, album, genre, year) VALUES(:artist, :album, :genre, :year)";
+				$statement = $this->databaseManager->connection->prepare($sqlQuery);
+
+				$statement->bindValue(':artist', $artist);
+				$statement->bindValue(':album', $album);
+				$statement->bindValue(':genre', $genre);
+				$statement->bindValue(':year', $year);
+
+				$statement->execute();
+			} else {
+				echo '<br>'.'<div class="alert alert-danger col-2">Please fill out all fields</div>'.'<br>';
+				echo '<pre>';
+				var_dump($_POST);
+				echo '</pre>';
+			}
 		}
 	}
 
@@ -38,8 +53,9 @@ class RecordRepository
 	{
 		// Replace dummy data by real one
 		$sqlQuery = 'SELECT * FROM records';
-		$queryResult = $this->databaseManager->connection->query($sqlQuery, PDO::FETCH_OBJ);
-		return $queryResult->fetchAll();
+		$statement = $this->databaseManager->connection->prepare($sqlQuery);
+		$statement->execute();
+		return $statement->fetchAll(PDO::FETCH_OBJ);
 
 		// We get the database connection first, so we can apply our queries with it
 		// return $this->databaseManager->connection-> (runYourQueryHere)
@@ -47,7 +63,16 @@ class RecordRepository
 
 	public function update(): void
 	{
-
+//		string $idToUpdate, string $newArtist, string $newAlbum, string $newGenre, int $newYear
+		echo '<pre>';
+		var_dump($_SESSION['records']);
+		echo '</pre>';
+//		try{
+//			$sql = "UPDATE records SET artist='{$newArtist}', album='{$newAlbum}', genre='{$newGenre}', year={$newYear} WHERE id={$idToUpdate}";
+//			$this->databaseManager->connection->exec($sql);
+//		} catch (PDOException $e) {
+//			echo $e->getMessage().'<br>';
+//		}
 	}
 
 	public function delete(): void

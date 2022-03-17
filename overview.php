@@ -13,6 +13,11 @@
 <br>
 <h1>VinylCollector - Track your collection</h1>
 <br>
+<p>
+    <a href="index.php?action=create">
+        <button type="submit" class="btn btn-success">Add a new record</button>
+    </a>
+</p>
 <table class="table table-hover">
     <thead>
     <tr>
@@ -21,25 +26,28 @@
         <th>Album</th>
         <th>Genre</th>
         <th>Year</th>
+        <th style="text-align: center">Edit  /  Delete</th>
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($_SESSION['records'] as $record) : ?>
+    <?php foreach ($_SESSION['records'] as $record): ?>
         <tr>
             <td> <?= $record->record_id ?> </td>
             <td> <?= $record->artist ?> </td>
             <td> <?= $record->album ?> </td>
             <td> <?= $record->genre ?> </td>
             <td> <?= $record->year ?> </td>
+            <td style="text-align: center">
+                <a href="index.php?action=edit&id=<?= $record->record_id ?>" >
+                    <button name="action" value="edit" type="submit" class="btn btn-outline-primary btn-md" style="padding: 5px 20px">Edit</button>
+                </a>
+                <a href="index.php?action=delete&id=<?= $record->record_id ?>" >
+                    <button name="action" value="delete" type="submit" class="btn btn-outline-danger btn-md" style="padding: 5px 10px">Delete</button>
+                </a>
+            </td>
         </tr>
     <?php endforeach; ?>
     </tbody>
 </table>
-<br>
-<div class="d-flex justify-content-evenly">
-    <a href="index.php?action=create">
-        <button type="submit" class="btn btn-primary btn-lg">Add a new record</button>
-    </a>
-</div>
 </body>
 </html>

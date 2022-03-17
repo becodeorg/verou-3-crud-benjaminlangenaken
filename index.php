@@ -34,30 +34,17 @@ $action = $_GET['action'] ?? null;
 switch ($action) {
 	case 'create':
 		require 'create.php';
-		create($RecordRepository);
+		$RecordRepository->create();
 		break;
-	case 'edit':
-		require 'edit.php';
-		edit($RecordRepository);
+	case 'delete':
+		require 'delete.php';
+		$RecordRepository->delete();
 		break;
+//	case 'edit':
+//		require 'edit.php';
+//		$RecordRepository->update();
+//		break;
 	default:
-		overview();
+		require 'overview.php';
 		break;
-}
-
-function overview()
-{
-	// Load your view
-	// Tip: you can load this dynamically and based on a variable, if you want to load another view
-	require 'overview.php';
-}
-
-function create($RecordRepository)
-{
-	$RecordRepository->create();
-}
-
-function edit($RecordRepository)
-{
-	$RecordRepository->update();
 }

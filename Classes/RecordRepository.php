@@ -32,12 +32,11 @@ class RecordRepository
 				$statement->bindValue(':genre', $genre);
 				$statement->bindValue(':year', $year);
 
+				// Execute our record creation and go back to the overview
 				$statement->execute();
+				header("Location: index.php");
 			} else {
 				echo '<br>'.'<div class="alert alert-danger col-2">Please fill out all fields</div>'.'<br>';
-				echo '<pre>';
-				var_dump($_POST);
-				echo '</pre>';
 			}
 		}
 	}
@@ -64,9 +63,6 @@ class RecordRepository
 	public function update(): void
 	{
 //		string $idToUpdate, string $newArtist, string $newAlbum, string $newGenre, int $newYear
-		echo '<pre>';
-		var_dump($_SESSION['records']);
-		echo '</pre>';
 //		try{
 //			$sql = "UPDATE records SET artist='{$newArtist}', album='{$newAlbum}', genre='{$newGenre}', year={$newYear} WHERE id={$idToUpdate}";
 //			$this->databaseManager->connection->exec($sql);
@@ -77,6 +73,10 @@ class RecordRepository
 
 	public function delete(): void
 	{
+		$sqlQuery = 'DELETE FROM records WHERE record_id = :id';
+		$statement = $this->databaseManager->connection->prepare($sqlQuery);
 
+		$statement->bindValue(':id', $_GET['id']);
+		$statement->execute();
 	}
 }

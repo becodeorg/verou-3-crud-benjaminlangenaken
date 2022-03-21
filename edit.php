@@ -1,3 +1,26 @@
+<?php
+
+ //If GET id exists --> take the id; otherwise take null
+$id = $_GET['id'] ?? null;
+
+if(!$_GET['id']) {
+    header('Location: index.php');
+    exit;
+}
+
+echo '<pre>';
+var_dump($RecordRepository->update());
+echo '</pre>';
+// Add empty strings for input fields when loading page for the first time
+if(empty($_GET)) {
+    $_GET['artist'] = '';
+    $_GET['album'] = '';
+    $_GET['genre'] = '';
+    $_GET['year'] = '';
+};
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,34 +35,36 @@
 
 <body style="padding: 20px">
 <br>
-<h1>VinylCollector - Edit record <?= $_GET['id'] ?> </h1>
+<h1>VinylCollector - Edit record</h1>
 <br>
-<form method="get" action="" class="d-flex justify-content-center row g-4">
-    <div class="col-md-5">
-        <label for="inputArtist" class="form-label">Artist</label>
-        <input type="text" class="form-control" id="inputArtist" name="name">
-    </div>
-    <div class="col-md-5">
-        <label for="inputAlbum" class="form-label">Album Name</label>
-        <input type="text" class="form-control" id="inputAlbum" name="album">
-    </div>
-    <div class="col-md-5">
-        <label for="inputGenre" class="form-label">Genre</label>
-        <input type="text" class="form-control" id="inputGenre" name="genre">
-    </div>
-    <div class="col-md-5">
-        <label for="inputYear" class="form-label">Year Released</label>
-        <input type="text" class="form-control" id="inputYear" name="year">
-    </div>
-    <div class="d-flex justify-content-center">
-        <a href="index.php" style="padding-right: 50px">
-            <button style="padding: 10px 40px" type="button" class="btn btn-primary btn-lg">Back</button>
-        </a>
-        <!--        name="action" refers to our $_GET['action'] variable-->
-        <!--        value="create" refers to the case 'create' from the switch statement-->
-        <button name="action" value="create" type="submit" style="padding: 10px 10px"
-                class="btn btn-primary btn-lg">Edit record!</button>
-    </div>
+<form action="" method="post">
+    <div class="form-row">
+        <div class="col-3">
+            <label for="inputArtist">Artist Name</label>
+            <input type="text" id="inputArtist" class="form-control" name="artist" value= <?= $_GET['artist'] ?> >
+        </div>
+        <br>
+        <div class="col-3">
+            <label for="inputAlbum">Album</label>
+            <input type="text" id="inputAlbum" class="form-control" name="album" value= <?= $_GET['album'] ?> >
+        </div>
+        <br>
+        <div class="col-3">
+            <label for="inputGenre">Genre</label>
+            <input type="text" id="inputGenre" class="form-control" name="genre" value= <?= $_GET['genre'] ?> >
+        </div>
+        <br>
+        <div class="col-1">
+            <label for="inputYear">Year Released</label>
+            <input type="number" id="inputYear" class="form-control" name="year" value= <?= $_GET['year'] ?> >
+        </div>
+        <br>
+        <div class="col-3">
+<!--        name="action" refers to our $_GET['action'] variable-->
+<!--        value="create" refers to the case 'create' from the switch statement-->
+            <button name="action" value="create" type="submit" style="padding: 10px 10px"
+                    class="btn btn-primary">Edit record!</button>
+        </div>
 </form>
 </body>
 </html>

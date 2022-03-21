@@ -60,15 +60,14 @@ class RecordRepository
 		// return $this->databaseManager->connection-> (runYourQueryHere)
 	}
 
-	public function update(): void
+	public function update(): array
 	{
-//		string $idToUpdate, string $newArtist, string $newAlbum, string $newGenre, int $newYear
-//		try{
-//			$sql = "UPDATE records SET artist='{$newArtist}', album='{$newAlbum}', genre='{$newGenre}', year={$newYear} WHERE id={$idToUpdate}";
-//			$this->databaseManager->connection->exec($sql);
-//		} catch (PDOException $e) {
-//			echo $e->getMessage().'<br>';
-//		}
+		$sqlQuery = 'SELECT * FROM records WHERE record_id = :id';
+		$statement = $this->databaseManager->connection->prepare($sqlQuery);
+
+		$statement->bindValue(':id', $_GET['id']);
+		$statement->execute();
+		return $statement->fetch();
 	}
 
 	public function delete(): void

@@ -40,10 +40,10 @@ switch ($action) {
 		require 'delete.php';
 		$RecordRepository->delete();
 		break;
-//	case 'edit':
-//		require 'edit.php';
-//		$RecordRepository->update();
-//		break;
+	case 'edit':
+		require 'edit.php';
+		$RecordRepository->update();
+		break;
 	default:
 		require 'overview.php';
 		break;

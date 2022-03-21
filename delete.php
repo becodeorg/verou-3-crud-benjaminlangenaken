@@ -1,6 +1,6 @@
 <?php
 
- //If POST id exists --> take the id; otherwise take null
+ //If GET id exists --> take the id; otherwise take null
 $id = $_GET['id'] ?? null;
 
 if(!$_GET['id']) {
